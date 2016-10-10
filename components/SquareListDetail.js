@@ -21,7 +21,6 @@ import {
 
 import SquareListDetailListView from './SquareListDetailListView';
 
-
 export default class SquareListDetail extends Component{
     constructor(props){
         super(props);

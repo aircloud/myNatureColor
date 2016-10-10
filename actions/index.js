@@ -8,6 +8,8 @@ export const USER_LOGIN = 'USER_LOGIN';
 export const USER_LOG_OUT = 'USER_LOG_OUT';
 export const USER_NOT_LOGIN = 'USER_NOT_LOGIN';
 
+export const ADD_USER_FAVOR = "ADD_USER_FAVOR";
+
 export const getIfPraise = userid => ({
    type: GET_IF_PRAISE,
    praise:[1,0,0,1,0,0]
@@ -36,4 +38,9 @@ export const usernotlogin = () =>({
 });
 export const userlogout = () =>({
    type:USER_LOG_OUT,
+});
+
+export const adduserfavor = sequence => ({
+   type:ADD_USER_FAVOR,
+   content:sequence,
 });

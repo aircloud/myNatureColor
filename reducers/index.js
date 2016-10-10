@@ -2,7 +2,7 @@
  * Created by hh on 4/10/2016.
  */
 import { combineReducers } from 'redux'
-import {GET_IF_PRAISE,RECEIVE_ALL_ARTICLE,USER_LOGIN,USER_LOG_OUT,USER_NOT_LOGIN} from '../actions';
+import {GET_IF_PRAISE,RECEIVE_ALL_ARTICLE,USER_LOGIN,USER_LOG_OUT,USER_NOT_LOGIN,ADD_USER_FAVOR} from '../actions';
 
 var ALLARTICLE = [
     {source:{uri: "assets-library://asset/asset.JPG?id=99D53A1F-FEEF-40E1-8BB3-7DD55A43C8B7&ext=JPG", isStatic: true},backgroundColor:"#a6e2e3",ifPraise:-1},
@@ -24,6 +24,9 @@ const allArticles = (state=ALLARTICLE,action) => {
             return state;
         case RECEIVE_ALL_ARTICLE:
             return action.content;
+        case ADD_USER_FAVOR:
+            // console.log("reducer_before",state);
+            return state.map(article=>article.UID==action.content?{...article,favor:article.favor+1}:article);
         default:
             return state;
     }

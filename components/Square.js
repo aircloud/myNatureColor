@@ -12,12 +12,13 @@ import {
     Navigator
 } from 'react-native';
 
+import { connect } from 'react-redux'
 
 import SquareListView from './SquareListView';
 import {GlobalStorage} from './Storage';
 
 
-export default class Square extends Component{
+class Square extends Component{
     constructor(props) {
         super(props);
 
@@ -48,7 +49,12 @@ export default class Square extends Component{
                     hidden={true}
                 />
                 <View style={styles.picListView}>
-                    <SquareListView style={styles.SquareListView} navigator={this.props.navigator} allAppArticles={this.props.allAppArticles} appUserStatus={this.props.appUserStatus}/>
+                    <SquareListView
+                        style={styles.SquareListView}
+                        navigator={this.props.navigator}
+                        allAppArticles={this.props.allAppArticles}
+                        appUserStatus={this.props.appUserStatus}
+                        dispatch = {this.props.dispatch}/>
                 </View>
             </View>
         )
@@ -76,5 +82,11 @@ const styles = StyleSheet.create({
     }
 });
 
-
-AppRegistry.registerComponent('Square', () => Square);
+function select(state){
+    return{
+        allAppArticles:state.allArticles,
+        appUserStatus:state.appuser
+    }
+}
+// AppRegistry.registerComponent('Square', () => Square);
+export default connect(select)(Square);

@@ -21,15 +21,28 @@ import {
 
 import SquareListDetail from "./SquareListDetail";
 
+import {adduserfavor} from "../actions";
+
+
 export default class SquareListView extends Component{
+
 
     constructor(props){
         super(props);
         var data=this.props.allAppArticles;
-        var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+        var ds = new ListView.DataSource({rowHasChanged:(r1,r2)=>{
+            if(r1 !== r2){
+                console.log('rowHasChanged!')
+            }else {
+                console.log('rowHasNotChanged')
+            }
+            return r1 !== r2;
+        }});
+
         this.state={
-            dataSource: ds.cloneWithRows(this._genRows(data)),
+            dataSource: ds.cloneWithRows(this._genRows(this.props.allAppArticles)),
         };
+
     }
 
     render(){
@@ -66,14 +79,44 @@ export default class SquareListView extends Component{
         }
     }
 
-    _loadfavor(){
+    _loadfavor(UID){
+        console.log("from list view state:",this.state.dataSource);
+
         var status = this.props.appUserStatus;
+        const dispatch = this.props.dispatch;
+
         console.log("from  listView pressrow:status",status);
         if(status.iflogin==0){
             AlertIOS.alert("Attention","请先登录后再点赞");
         }
         else if(status.iflogin==1){
-            AlertIOS.alert("Attention","您已经登陆，可以点赞");
+            var temp_phone = status.phone;
+            fetch("https://back.10000h.top/userfavor?phone="+temp_phone+"&articleuid="+UID).then(response=>response.json()).then(
+                (responseText)=>{
+                    if(responseText.find==1){
+                        AlertIOS.alert("Attention","您已经点过赞了，请勿重复点赞");
+                    }
+                    else{
+                        //这里该dispatch一下...
+                        fetch("https://back.10000h.top/adduserfavor?phone="+temp_phone+"&articleuid="+UID).then(response2=>response2.json()).then(
+                            (responseText2)=>{
+                                if(responseText2.success==1){
+                                    dispatch(adduserfavor(UID));
+                                    setTimeout(()=> {
+                                        this.setState({
+                                            dataSource:this.state.dataSource.cloneWithRows(this._genRows(this.props.allAppArticles))
+                                        });
+                                        console.log(this.props.allAppArticles);
+                                    },20);
+                                    AlertIOS.alert("Attention","您已经点赞成功");
+                                }
+                                else{
+                                    AlertIOS.alert("Attention","由于网络错误未能点赞成功");
+                                }
+                            });
+                    }
+                });
+
         }
     }
 
@@ -86,7 +129,7 @@ export default class SquareListView extends Component{
                     <View style={styles.likeView}>
                         <Text style={styles.likeTextName}>{rowData.name}</Text>
                         <TouchableHighlight style={styles.likebutton} activeOpacity={1} underlayColor="rgba(255,255,255,0)" onPress={() => {
-                            this._loadfavor();
+                            this._loadfavor(rowData.UID);
                         }}>
                             <View style={styles.likebuttonView}>
                                 <Text style={styles.likeText}>{rowData.favor}</Text>

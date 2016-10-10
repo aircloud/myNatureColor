@@ -61,8 +61,8 @@ class HomeApp extends Component{
     }
 
     _renderContent(color, page) {
-        var allAppArticles="";
-        var appUserStatus;
+        // var allAppArticles="";
+        // var appUserStatus;
         let rootViewName = page;
         let rootComponent;
         let squareType = "square_square";
@@ -70,9 +70,9 @@ class HomeApp extends Component{
             rootComponent = Color;
         else if(page=="Square") {
             rootComponent = Square;
-            allAppArticles = this.props.allAppArticles;
-            appUserStatus=this.props.appUserStatus;
-            console.log("allapp",allAppArticles);
+            // allAppArticles = this.props.allAppArticles;
+            // appUserStatus=this.props.appUserStatus;
+            // console.log("allapp",allAppArticles);
         }
         else if(page=="Center")
             rootComponent = Center;
@@ -85,7 +85,7 @@ class HomeApp extends Component{
                 }}
                 renderScene = {(route, navigator) => {
                     let Component = route.component;
-                    return <Component {...route.params} navigator = {navigator} color={color} allAppArticles={allAppArticles} appUserStatus={appUserStatus} squareType={squareType}/>
+                    return <Component {...route.params} navigator = {navigator} color={color}  squareType={squareType}/>
                 }} />
             //这三个nav是返回的三个实例，所以我们可以把这三个当作三个顶层组件来用
         );
