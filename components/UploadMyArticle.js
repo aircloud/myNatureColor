@@ -14,25 +14,27 @@ import {
     ListView,
     Navigator,
     TouchableHighlight,
+    CameraRoll
 } from 'react-native';
 
 import {GlobalStorage} from './Storage';
 import {getIfPraise,getAllarticle,userlogin,usernotlogin,userlogout} from "../actions";
+import UploadMyArticleListView from './UploadMyArticleListView';
 
-export default class TextExplain extends Component{
+export default class UploadMyArticle extends Component{
 
     constructor(props){
         super(props);
+        this.state={};
+    }
+
+    componentDidMount() {
 
     }
 
     render(){
         return (
-            <View>
-                <Text>
-
-                </Text>
-            </View>
+            <UploadMyArticleListView data={this.props.data}/>
         )
     }
 }

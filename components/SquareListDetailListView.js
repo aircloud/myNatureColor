@@ -64,7 +64,6 @@ export default class SquareListDetailListView extends Component{
     _renderRow(rowData, sectionID, rowID,) {
         var thisBackGroundColor=rowData.backgroundColor;
         return (
-
             <View>
                 <Image style={styles.thumb} source={rowData.source} />
             </View>

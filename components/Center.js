@@ -17,6 +17,7 @@ import { connect } from 'react-redux'
 import Login from './Login';
 import {GlobalStorage} from './Storage';
 import {getIfPraise,getAllarticle,userlogin,usernotlogin,userlogout} from "../actions";
+import MyAllArticle from './MyAllArticle';
 
 class Center extends Component{
 
@@ -67,6 +68,22 @@ class Center extends Component{
                             iflogin:1,
                         });
                     },
+                    dispatch:_this.props.dispatch
+                }
+            });
+        }
+    }
+
+    _toallmyarticle(){
+        let _this = this;
+        const { navigator } = this.props;
+        console.log("to my article");
+        if(navigator) {
+            navigator.push({
+                name: 'MyAllArticle',
+                component: MyAllArticle,
+                params: {
+                    navigator:{navigator},
                     dispatch:_this.props.dispatch
                 }
             });
@@ -127,7 +144,7 @@ class Center extends Component{
                                 <Image source={require('../images/toright.png')} style={styles.listViewPic}/>
                             </View>
                         </TouchableHighlight>
-                        <TouchableHighlight onPress={this.hellopress.bind(this)}>
+                        <TouchableHighlight onPress={this._toallmyarticle.bind(this)}>
                             <View style={styles.listView}>
                                 <Text style={styles.listViewText}>我的投稿</Text>
                                 <Image source={require('../images/toright.png')} style={styles.listViewPic}/>
@@ -195,7 +212,7 @@ class Center extends Component{
                                 <Image source={require('../images/toright.png')} style={styles.listViewPic}/>
                             </View>
                         </TouchableHighlight>
-                        <TouchableHighlight onPress={this.hellopress.bind(this)}>
+                        <TouchableHighlight onPress={this._toallmyarticle.bind(this)}>
                             <View style={styles.listView}>
                                 <Text style={styles.listViewText}>我的投稿</Text>
                                 <Image source={require('../images/toright.png')} style={styles.listViewPic}/>
