@@ -19,7 +19,7 @@ import {
 
 import {GlobalStorage} from './Storage';
 import {getIfPraise,getAllarticle,userlogin,usernotlogin,userlogout} from "../actions";
-import UploadMyArticle from './UploadMyArticle';
+import UploadMyArticleListView from './UploadMyArticleListView';
 
 
 export default class MyAllArticle extends Component{
@@ -35,13 +35,14 @@ export default class MyAllArticle extends Component{
             for(let ii=0;ii<data.edges.length;ii++) {
                 data.edges[ii].selectImageState = require('../images/select.png');
                 data.edges[ii].selectstate=0;
+                data.edges[ii].selectbackground="rgba(0,0,0,0)";
             }
             let _this = this;
             const { navigator } = this.props;
             if(navigator) {
                 navigator.push({
-                    name: 'UploadMyArticle',
-                    component: UploadMyArticle,
+                    name: 'UploadMyArticleListView',
+                    component: UploadMyArticleListView,
                     params: {
                         navigator:{navigator},
                         dispatch:_this.props.dispatch,
