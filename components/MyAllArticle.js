@@ -19,7 +19,9 @@ import {
 
 import {GlobalStorage} from './Storage';
 import {getIfPraise,getAllarticle,userlogin,usernotlogin,userlogout} from "../actions";
-import UploadMyArticleListView from './UploadMyArticleListView';
+// import UploadMyArticleListView from './UploadMyArticleListView';
+import PhotoSelector from './PhotoSelector';
+// import UploadMyArticleStep2 from './UploadMyArticleStep2';
 
 
 export default class MyAllArticle extends Component{
@@ -42,11 +44,13 @@ export default class MyAllArticle extends Component{
             if(navigator) {
                 navigator.push({
                     name: 'UploadMyArticleListView',
-                    component: UploadMyArticleListView,
+                    component: PhotoSelector,
                     params: {
                         navigator:{navigator},
                         dispatch:_this.props.dispatch,
-                        data:data.edges
+                        data:data.edges,
+                        nextNavName:"UploadMyArticleStep2",
+                        // nextNav:UploadMyArticleStep2,
                     }
                 });
             }

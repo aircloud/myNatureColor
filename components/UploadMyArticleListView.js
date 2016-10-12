@@ -65,6 +65,7 @@ export default class UploadMyArticleListView  extends Component{
                         navigator: {navigator},
                         dispatch: _this.props.dispatch,
                         selectImage: selectImage,
+                        data:this.props.data,
                     }
                 });
             }

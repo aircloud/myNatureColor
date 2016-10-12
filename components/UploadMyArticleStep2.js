@@ -21,14 +21,19 @@ import {
 import UploadMyArticleStep2_editinfo from "./UploadMyArticleStep2_editinfo";
 import UploadMyArticleStep2_changeIndexImage from './UploadMyArticleStep2_changeIndexImage';
 import UploadMyArticleStep2_edittitle from "./UploadMyArticleStep2_edittitle";
+import PhotoSelector from './PhotoSelector';
+import PhotoSelector2 from './PhotoSelector2';
+
 
 export default class UploadMyArticleStep2 extends Component{
     constructor(props){
         super(props);
 
-        const selectImage = this.props.selectImage;
-
-        const indexImage = {source:{uri:selectImage[0],isStatic: true}};
+        const selectImage = this.props.preData||this.props.selectImage;
+        selectImage.map((eachImage)=>{
+            eachImage.selectstate=1;
+        });
+        const indexImage = {source:{uri:this.props.selectImage[0].node.image.uri,isStatic: true}};
         this.state={
             cansubmit:0,
             title:"",
@@ -46,6 +51,12 @@ export default class UploadMyArticleStep2 extends Component{
     _finalStep(){
 
     }
+
+    // changeIndex(indexImage){
+    //     this.setState({
+    //        indexImage:indexImage
+    //     });
+    // }
 
     _edittitle(){
         let _this = this;
@@ -74,7 +85,6 @@ export default class UploadMyArticleStep2 extends Component{
                     navigator:{navigator},
                     dispatch:_this.props.dispatch,
                     selectImage:_this.state.selectImage,
-
                 }
             });
         }
@@ -83,22 +93,31 @@ export default class UploadMyArticleStep2 extends Component{
     _changeIndexImage(){
         let _this = this;
         const { navigator } = this.props;
+        var tempSelectImage = this.state.selectImage;
+        tempSelectImage.map((eachnode)=>{if(eachnode.node.image.uri!=this.state.indexImage.source.uri)eachnode.selectstate=0;
+        else{eachnode.selectstate=1}});
         if(navigator) {
             navigator.push({
-                name: 'UploadMyArticleStep2_changeIndexImage',
-                component: UploadMyArticleStep2_changeIndexImage,
+                name: 'PhotoSelector2',
+                component: PhotoSelector2,
                 params: {
                     navigator:{navigator},
                     dispatch:_this.props.dispatch,
-                    selectImage:_this.state.selectImage,
-
-                }
+                    data:tempSelectImage,
+                    maxNumber:1,
+                    nextNavName:"UploadMyArticleStep2",
+                    ifSendPreData:1,
+                    changeIndexImage:function(indexImage){
+                        _this.setState({indexImage});
+                    }
+                    // nextNav:UploadMyArticleStep2,
+                },
+                type:"Bottom"
             });
         }
     }
 
     render(){
-        var tempSource = {source:{uri:"assets-library://asset/asset.JPG?id=106E99A1-4F6A-45A2-B320-B0AD4A8E8473&ext=JPG"}};
 
         return(
             <View style={styles.AllView}>
