@@ -5,6 +5,7 @@
  */
 import React, { Component } from 'react';
 import {
+    ActivityIndicator,
     StatusBar,
     AppRegistry,
     StyleSheet,
@@ -22,13 +23,39 @@ import {getIfPraise,getAllarticle,userlogin,usernotlogin,userlogout} from "../ac
 // import UploadMyArticleListView from './UploadMyArticleListView';
 import PhotoSelector from './PhotoSelector';
 // import UploadMyArticleStep2 from './UploadMyArticleStep2';
-
+import ArticleListView from './ArticleListView';
 
 export default class MyAllArticle extends Component{
 
     constructor(props){
         super(props);
 
+        this.state={
+            ifgetArticle:0
+        };
+        //在这里进行fetch
+        GlobalStorage.load({
+            key:'user',
+            autoSync:true,
+            syncInBackground: false,
+        }).then(resp=>{
+            this.setState ({
+                phone:resp.phone,
+                name:resp.name
+            });
+            fetch("https://back.10000h.top/getuserarticle/"+resp.phone).then(response=>response.json()).then(
+                (responseText)=>{
+                    console.log("this person article",responseText);
+                    this.setState({
+                        allmyArticles:responseText,
+                        ifgetArticle:1,
+                    });
+                });
+            console.log(this.state);
+        }).catch(err => {
+           //do nothing
+            //理论上这种情况不是很可能发生
+        });
     }
 
     _toUploadArticle(){
@@ -58,28 +85,120 @@ export default class MyAllArticle extends Component{
     }
 
     render(){
-        return (
-            <View style={styles.MyAllArticleTopView}>
-                <View>
-                    <TouchableHighlight activeOpacity={1} onPress={this._toUploadArticle.bind(this)} underlayColor="rgba(255,255,255,0)">
-                        <Text>
-                            上传稿件
+
+        if(this.state.ifgetArticle==1) {
+            return (
+                <View style={styles.MyAllArticleTopView}>
+                    <View style={styles.MyAllArticleAddView}>
+                        <TouchableHighlight activeOpacity={1} onPress={this._toUploadArticle.bind(this)}
+                                            underlayColor="rgba(255,255,255,0)">
+                            <View style={styles.addachor}>
+                                <Image source={require("../images/add1.png")} style={styles.addIcon}/>
+                                <Text style={styles.addText}>
+                                    上传稿件
+                                </Text>
+                            </View>
+
+                        </TouchableHighlight>
+                    </View>
+                    <View style={styles.myAllInfo}>
+                        <Text style={styles.myAllInfoText}>
+                            我目前的投稿:
                         </Text>
-                    </TouchableHighlight>
+
+                        <View style={styles.myArticleView}>
+                            <ArticleListView
+                                style={styles.myArticleListView}
+                                navigator={this.props.navigator}
+                                dispatch={this.props.dispatch}
+                                allAppArticles={this.state.allmyArticles}
+                                appUserStatus={this.props.appUserStatus}
+                            />
+                        </View>
+                    </View>
                 </View>
-                <View>
-                    <Text>
-                        我目前的投稿...
-                    </Text>
+            )
+        }
+        else{
+            return (
+                <View style={styles.MyAllArticleTopView}>
+                    <View style={styles.MyAllArticleAddView}>
+                        <TouchableHighlight activeOpacity={1} onPress={this._toUploadArticle.bind(this)}
+                                            underlayColor="rgba(255,255,255,0)">
+                            <View style={styles.addachor}>
+                                <Image source={require("../images/add1.png")} style={styles.addIcon}/>
+                                <Text style={styles.addText}>
+                                    上传稿件
+                                </Text>
+                            </View>
+
+                        </TouchableHighlight>
+                    </View>
+                    <View style={styles.myAllInfo}>
+                        <Text style={styles.myAllInfoText}>
+                            我目前的投稿:
+                        </Text>
+                        <View style={styles.myArticleView}>
+                            <ActivityIndicator
+                                style={[styles.centering,]}
+                                color="#333333"
+                            />
+                        </View>
+                    </View>
                 </View>
-            </View>
-        )
+            )
+        }
     }
 }
 
 var styles =  StyleSheet.create({
     MyAllArticleTopView:{
-
-    }
+        flex:1,
+        backgroundColor:"#F3F4F8",
+    },
+    MyAllArticleAddView:{
+        margin:20,
+        marginBottom:5,
+        justifyContent:"flex-end",
+        height:25,
+        flexDirection:"row"
+    },
+    addachor:{
+        height:25,
+        width:100,
+        justifyContent:"flex-end",
+        flexDirection:"row"
+    },
+    addIcon:{
+        width:20,
+        height:20,
+        marginRight:3,
+    },
+    addText:{
+        width:75,
+        fontSize:18,
+        marginTop:1
+    },
+    myAllInfo:{
+        flex:1,
+        marginLeft:20,
+        marginRight:20,
+        marginTop:5,
+    },
+    myAllInfoText:{
+       marginBottom:10,
+    },
+    myArticleView:{
+        flex:1,
+    },
+    myArticleListView:{
+        flex:1,
+        flexDirection:"column"
+    },
+    centering: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: 8,
+    },
 
 });

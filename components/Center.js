@@ -84,7 +84,8 @@ class Center extends Component{
                 component: MyAllArticle,
                 params: {
                     navigator:{navigator},
-                    dispatch:_this.props.dispatch
+                    dispatch:_this.props.dispatch,
+                    appUserStatus:_this.props.appUserStatus
                 }
             });
         }

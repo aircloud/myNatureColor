@@ -57,6 +57,7 @@ export default class SquareListView extends Component{
 
     _genRows(pressData){
         var dataBlob = [];
+        console.log(pressData);
         for (var ii = 0; ii < pressData.length; ii++) {
             var pressedText = pressData[ii];
             dataBlob.push(pressedText);

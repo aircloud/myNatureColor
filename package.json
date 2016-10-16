@@ -7,8 +7,10 @@
   },
   "dependencies": {
     "@remobile/react-native-toast": "^1.0.4",
+    "multer": "^1.2.0",
     "react": "15.3.2",
     "react-native": "0.34.1",
+    "react-native-fileupload": "^1.2.0",
     "react-native-imagepicker": "^1.0.0",
     "react-native-storage": "^0.1.4",
     "react-redux": "^4.4.5",

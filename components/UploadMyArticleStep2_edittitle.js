@@ -24,12 +24,26 @@ export default class UploadMyArticleStep2_edittitle extends Component{
     constructor(props){
         super(props);
         this.state={
-            info:""
+            title:""
+        };
+    }
+
+    componentDidMount() {
+        if(this.props.title!=""){
+            this.setState({title:this.props.title})
         }
     }
 
     _return(){
-
+        const { navigator } = this.props;
+        if(this.state.info!=""){
+            if(navigator) {
+                this.props.changeTitle(this.state.title);
+                navigator.pop();
+            }
+        }else{
+            //do nothing
+        }
     }
 
     render(){
@@ -52,8 +66,8 @@ export default class UploadMyArticleStep2_edittitle extends Component{
                         <TextInput
                             autoFocus={true}
                             style={styles.TextInputStyle}
-                            onChangeText={(info) => this.setState({info})}
-                            value={this.state.info}
+                            onChangeText={(title) => this.setState({title})}
+                            value={this.state.title}
                             maxLength={20}
                             placeholder="请在这里输入关于本篇稿件的题目(限20字)"
                         />
@@ -99,8 +113,8 @@ var styles = StyleSheet.create({
         borderRadius:2,
     },
     outerView2:{
-        height:40,
-        margin:2,
+        height:33,
+        margin:3,
     },
     TextInputStyle:{
         flex:1,

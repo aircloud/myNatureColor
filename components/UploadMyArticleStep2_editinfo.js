@@ -16,7 +16,7 @@ import {
     Navigator,
     TouchableHighlight,
     CameraRoll,
-    TextInput
+    TextInput,
 } from 'react-native';
 
 export default class UploadMyArticleStep2_editinfo extends Component{
@@ -25,11 +25,25 @@ export default class UploadMyArticleStep2_editinfo extends Component{
         super(props);
         this.state={
             info:""
+        };
+    }
+
+    componentDidMount() {
+        if(this.props.describe!=""){
+            this.setState({info:this.props.describe})
         }
     }
 
     _return(){
-
+        const { navigator } = this.props;
+        if(this.state.info!=""){
+            if(navigator) {
+                this.props.changeDescribe(this.state.info);
+                navigator.pop();
+            }
+        }else{
+            //do nothing
+        }
     }
 
     render(){
@@ -92,7 +106,7 @@ var styles = StyleSheet.create({
     outerView1:{
         margin:5,
         borderWidth:1,
-        borderColor:"#333333",
+        borderColor:"#666666",
         height:250
     },
     outerView2:{
