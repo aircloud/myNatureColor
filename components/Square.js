@@ -51,8 +51,8 @@ class Square extends Component{
                 <View style={styles.picListView}>
                     <SquareListView
                         style={styles.SquareListView}
-                        navigator={this.props.navigator}
                         allAppArticles={this.props.allAppArticles}
+                        navigator={this.props.navigator}
                         appUserStatus={this.props.appUserStatus}
                         dispatch = {this.props.dispatch}/>
                 </View>

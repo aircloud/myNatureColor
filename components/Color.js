@@ -106,8 +106,8 @@ export default class Color extends Component{
         imagePicker.open({
             takePhoto: true,
             useLastPhoto: false,
-            chooseFromLibrary: true
-        }).then(function(imageUri) {
+            chooseFromLibrary: true,
+        }).then(function(image,height, width) {
             const { navigator } = _this.props;
             if(navigator) {
                 navigator.push({
@@ -115,12 +115,12 @@ export default class Color extends Component{
                     component: UploadInfo,
                     params: {
                         id: 1,
-                        imageUri:imageUri,
+                        imageUri:image,
                         _getuser:_this.props._getuser
                     }
                 });
             }
-            console.log('imageUri', imageUri);
+            console.log('image edit the source code', image,height,width);
         }, function() {
             console.log('user cancel');
         });

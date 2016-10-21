@@ -26,6 +26,7 @@ var PAGE_SIZE = 20;
 // var XHRExampleOnTimeOut = require('./XHRExampleOnTimeOut');
 // var XHRExampleCookies = require('./XHRExampleCookies');
 
+import ColorImageResult from './ColorImageResult';
 
 export default class ColorImageUpload extends  Component {
 
@@ -40,35 +41,40 @@ export default class ColorImageUpload extends  Component {
     }
 
     componentDidMount() {
-        this._fetchRandomPhoto();
+        // this._fetchRandomPhoto();
+        Image.getSize(this.props.uri, (imageWidth, imageHeight) => {
+            this.setState({imageWidth, imageHeight});
+            console.log(imageWidth, imageHeight);
+        });
     }
 
-    _fetchRandomPhoto() {
-        CameraRoll.getPhotos(
-            {first: PAGE_SIZE}
-        ).then(
-            (data) => {
-                if (!this._isMounted) {
-                    return;
-                }
-                var edges = data.edges;
-                var edge = edges[Math.floor(Math.random() * edges.length)];
-                var randomPhoto = edge && edge.node && edge.node.image;
-                if (randomPhoto) {
-                    this.setState({randomPhoto});
-                }
-                console.log(randomPhoto);
-            },
-            (error) => {
-                console.log("some error");
-            }
-        );
-    }
+    // _fetchRandomPhoto() {
+    //     CameraRoll.getPhotos(
+    //         {first: PAGE_SIZE}
+    //     ).then(
+    //         (data) => {
+    //             if (!this._isMounted) {
+    //                 return;
+    //             }
+    //             var edges = data.edges;
+    //             var edge = edges[Math.floor(Math.random() * edges.length)];
+    //             var randomPhoto = edge && edge.node && edge.node.image;
+    //             if (randomPhoto) {
+    //                 this.setState({randomPhoto});
+    //             }
+    //             console.log(randomPhoto);
+    //         },
+    //         (error) => {
+    //             console.log("some error");
+    //         }
+    //     );
+    // }
 
     _upload()
     {
         var xhr = new XMLHttpRequest();
-        xhr.open('POST', 'https://www.10000h.top/file_upload');
+        xhr.open('POST', 'https://back.10000h.top/file_upload');
+        // xhr.open('POST', 'http://localhost:3000/file_upload');
         xhr.onload = () => {
             this.setState({isUploading: false});
             if (xhr.status !== 200) {
@@ -83,16 +89,28 @@ export default class ColorImageUpload extends  Component {
                     'Upload succeed',
                     'Expected HTTP 200 OK response, got ' + xhr.status
                 );
+                console.log(xhr.responseText);
+                let _this = this;
+                const { navigator } = this.props;
+                if(navigator) {
+                    navigator.push({
+                        name: 'ColorImageResult',
+                        component: ColorImageResult,
+                        params: {
+                            info: xhr.responseText
+                        }
+                    });
+                }
                 return;
             }
         };
         var formdata = new FormData();
-
         var thisuri=this.props.uri;
         formdata.append('image', {uri: thisuri, type: 'image/jpeg', name: 'image.jpg'});
-        // if (this.state.randomPhoto) {
-        //     formdata.append('image', {...this.state.randomPhoto, name: 'image.jpg'});
-        // }
+        formdata.append("width",this.state.imageWidth);
+        formdata.append("height",this.state.imageHeight);
+        formdata.append("colorNumber",this.props.colorNumber);
+        formdata.append("contrastOffset",this.props.contrastOffset);
         this.state.textParams.forEach(
             (param) => formdata.append(param.name, param.value)
         );
@@ -119,7 +137,7 @@ export default class ColorImageUpload extends  Component {
         );
 
         return(
-            <TouchableHighlight onPress={this._upload.bind(this)}>
+            <TouchableHighlight onPress={this._upload.bind(this)} activeOpacity={1} underlayColor="rgba(255,255,255,0)">
                 <View style={styles.uploadButton}>
                     {uploadButton}
                 </View>

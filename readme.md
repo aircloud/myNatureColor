@@ -221,7 +221,23 @@ this.setState({
 
 1.  最常见的原因是自己后台服务器没有开起来，导致没有办法fetch到数据出错。
 
+###1020 react native 获取相册图片的尺寸
 
+自己在用ImagePickeriOS的系统接口的时候，发现返回的只有Image的uri，而react native规定必须要指定width和height才能显示图片，所以自己查了半天如何获取width和height，经过查证，发现原来有这个函数：
+
+```
+  componentDidMount() {
+        // this._fetchRandomPhoto();
+        Image.getSize(this.props.uri, (imageWidth, imageHeight) => {
+            this.setState({imageWidth, imageHeight});
+            console.log(imageWidth, imageHeight);
+        });
+    }
+```
+
+这个函数非常好用，用来获取图片width和height，是系统提供的。
+
+* 关于在styels中使用变量的问题，styles中是不太好直接使用组件中的变量的，但是可以直接把变量定义在组件外围，可以直接使用(自己在制作相片多选组件的时候有用到过)。
 
 
 ____

@@ -64,11 +64,10 @@ export default class SquareListView extends Component{
         return dataBlob;
     }
 
-    _pressRow(rowID) {
+    _pressRow(rowData) {
 
         //这个仅仅传递一个rowID肯定是不行的....
-
-        console.log(rowID);
+        console.log(rowData);
         console.log("from  listView pressrow",this.props);
         const { navigator } = this.props;
         if(navigator) {
@@ -76,7 +75,10 @@ export default class SquareListView extends Component{
                 name: 'SquareListDetail',
                 component: SquareListDetail,
                 params: {
-                    id: rowID,
+                    uid : rowData.UID,
+                    navigator:this.props.navigator,
+                    appUserStatus:this.props.appUserStatus,
+                    dispatch:this.props.dispatch
                 }
             });
         }
@@ -119,12 +121,11 @@ export default class SquareListView extends Component{
                             });
                     }
                 });
-
         }
     }
 
     _renderRow(rowData, sectionID, rowID,) {
-        console.log(rowData);
+        console.log("from SquareListView:",rowData);
         var thisBackGroundColor=rowData.backgroundColor;
         return (
             <View>
@@ -141,7 +142,7 @@ export default class SquareListView extends Component{
                         </TouchableHighlight>
                     </View>
                     <TouchableHighlight activeOpacity={1} underlayColor="rgba(255,255,255,0)" onPress={() => {
-                        this._pressRow(rowID);
+                        this._pressRow(rowData);
                     }}>
                         <Image style={styles.thumb} source={{uri:rowData.image_uri}} />
                     </TouchableHighlight>

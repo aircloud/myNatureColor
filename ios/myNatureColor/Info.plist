@@ -40,6 +40,12 @@
 	<string></string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>此APP需要您的同意才能读取媒体资料库</string>
+	<key>NSCameraUsageDescription</key>
+	<string>此APP需要您的同意才能读取照相机</string>
+	<key>NSContactsUsageDescription</key>
+	<string>此APP需要您的同意才能读取通讯录</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>此APP需要您的同意才能读取本机信息</string>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSExceptionDomains</key>

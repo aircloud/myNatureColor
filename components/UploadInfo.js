@@ -8,11 +8,12 @@ import {
     StyleSheet,
     Image,
     View,
+    Slider,
     Text,
     Navigator
 } from 'react-native';
 
-import UploadSilder from './UploadSilder';
+// import UploadSilder from './UploadSilder';
 import ColorImageUpload from './ColorImageUpload';
 
 
@@ -23,8 +24,10 @@ export default class UploadInfo extends Component{
         this.state = {
             photoSoure: {
                 uri:this.props.imageUri,
-                isStatic: true
+                isStatic: true,
             },
+            contrastOffset:1,
+            colorNumber:2,
         };
     }
 
@@ -43,12 +46,31 @@ export default class UploadInfo extends Component{
                 </View>
                 <View style={styles.configView}>
                     <View style={styles.UploadSilderView}>
-                        <UploadSilder step={1} minimumValue={2} minimumTrackTintColor={"#333333"} title="颜色数目" maximumValue={9} value={2} style={styles.UploadSilderStyle}/>
+                        <View style={styles.UploadSilderStyle}>
+                            <Text style={styles.text} >
+                                颜色数目:{this.state.colorNumber && +this.state.colorNumber.toFixed(3)}
+                            </Text>
+                            <Slider style={styles.slider}
+                                step={1} minimumValue={2} minimumTrackTintColor={"#333333"} maximumValue={9} value={this.state.colorNumber}
+                                onValueChange={(colorNumber) => this.setState({colorNumber:colorNumber})} />
+                        </View>
+
                     </View>
                     <View style={styles.UploadSilderView}>
-                        <UploadSilder step={1} minimumValue={1} minimumTrackTintColor={"#333333"} title="冷暖值" maximumValue={5} value={1} style={styles.UploadSilderStyle}/>
+                        <View style={styles.UploadSilderStyle}>
+                            <Text style={styles.text} >
+                                冷暖值:{this.state.contrastOffset && +this.state.contrastOffset.toFixed(3)}
+                            </Text>
+                            <Slider style={styles.slider}
+                                    step={1} minimumValue={1} minimumTrackTintColor={"#333333"}  maximumValue={5} value={this.state.contrastOffset}
+                                    onValueChange={(contrastOffset) => this.setState({contrastOffset:contrastOffset})} />
+                        </View>
                     </View>
-                    <ColorImageUpload uri={this.state.photoSoure.uri}/>
+                    <ColorImageUpload uri={this.state.photoSoure.uri}
+                                      navigator = {this.props.navigator}
+                                      colorNumber={this.state.colorNumber}
+                                      contrastOffset={this.state.contrastOffset}
+                    />
                     <View style={styles.tipView}>
                         <Text style={styles.tip}>左滑返回</Text>
                     </View>
@@ -100,7 +122,19 @@ const styles = StyleSheet.create({
         fontSize:14,
         color:"#666666",
         marginTop:25,
-    }
+    },
+    slider: {
+        height: 10,
+        // margin: 10,
+        marginTop:10,
+        marginBottom:10,
+        width:320,
+    },
+    text: {
+        fontSize: 14,
+        fontWeight: '500',
+        margin: 10,
+    },
 });
 
 

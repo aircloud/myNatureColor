@@ -18,23 +18,26 @@ import {
     Navigator
 } from 'react-native';
 
-
+import isObjectEmpty from  './tools/Object.tools';
+// var data=[
+//     {source:{uri: "assets-library://asset/asset.JPG?id=106E99A1-4F6A-45A2-B320-B0AD4A8E8473&ext=JPG", isStatic: true}},
+//     {source:{uri: "assets-library://asset/asset.JPG?id=99D53A1F-FEEF-40E1-8BB3-7DD55A43C8B7&ext=JPG", isStatic: true}},
+//     {source:{uri: "assets-library://asset/asset.JPG?id=106E99A1-4F6A-45A2-B320-B0AD4A8E8473&ext=JPG", isStatic: true}},
+//     {source:{uri: "assets-library://asset/asset.JPG?id=99D53A1F-FEEF-40E1-8BB3-7DD55A43C8B7&ext=JPG", isStatic: true}},
+//     {source:{uri: "assets-library://asset/asset.JPG?id=106E99A1-4F6A-45A2-B320-B0AD4A8E8473&ext=JPG", isStatic: true}},
+//     {source:{uri: "assets-library://asset/asset.JPG?id=99D53A1F-FEEF-40E1-8BB3-7DD55A43C8B7&ext=JPG", isStatic: true}},
+// ];
 export default class SquareListDetailListView extends Component{
 
     constructor(props){
         super(props);
-        var data=[
-            {source:{uri: "assets-library://asset/asset.JPG?id=106E99A1-4F6A-45A2-B320-B0AD4A8E8473&ext=JPG", isStatic: true}},
-            {source:{uri: "assets-library://asset/asset.JPG?id=99D53A1F-FEEF-40E1-8BB3-7DD55A43C8B7&ext=JPG", isStatic: true}},
-            {source:{uri: "assets-library://asset/asset.JPG?id=106E99A1-4F6A-45A2-B320-B0AD4A8E8473&ext=JPG", isStatic: true}},
-            {source:{uri: "assets-library://asset/asset.JPG?id=99D53A1F-FEEF-40E1-8BB3-7DD55A43C8B7&ext=JPG", isStatic: true}},
-            {source:{uri: "assets-library://asset/asset.JPG?id=106E99A1-4F6A-45A2-B320-B0AD4A8E8473&ext=JPG", isStatic: true}},
-            {source:{uri: "assets-library://asset/asset.JPG?id=99D53A1F-FEEF-40E1-8BB3-7DD55A43C8B7&ext=JPG", isStatic: true}},
-        ];
+        var detailInfo = this.props.detailInfo;
         var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
         this.state={
-            dataSource: ds.cloneWithRows(this._genRows(data)),
-        };
+            pending:false,
+            dataSource: ds.cloneWithRows(this._genRows(detailInfo.photoList)),
+            detailInfo,
+        }
     }
 
     render(){
@@ -51,7 +54,11 @@ export default class SquareListDetailListView extends Component{
         var dataBlob = [];
         for (var ii = 0; ii < pressData.length; ii++) {
             var pressedText = pressData[ii];
-            dataBlob.push(pressedText);
+            dataBlob[ii]={};
+            dataBlob[ii].source = {uri:pressedText.image_uri,isStatic:true};
+            dataBlob[ii].image_width = pressedText.image_width==0?300:pressedText.image_width;
+            dataBlob[ii].image_height = pressedText.image_height==0?300:pressedText.image_height;
+            // dataBlob.push(pressedText);
         }
         return dataBlob;
     }
@@ -62,15 +69,14 @@ export default class SquareListDetailListView extends Component{
     }
 
     _renderRow(rowData, sectionID, rowID,) {
+        console.log("sldlv rowdata",rowData);
         var thisBackGroundColor=rowData.backgroundColor;
         return (
             <View>
-                <Image style={styles.thumb} source={rowData.source} />
+                <Image style={[styles.thumb,{width:rowData.image_width,height:rowData.image_height}]} source={rowData.source} />
             </View>
         );
     }
-
-
 };
 
 /* eslint no-bitwise: 0 */
@@ -88,10 +94,11 @@ var styles = StyleSheet.create({
         height:220,
         overflow:"hidden",
     },
+    ListViewStyle:{
+      width:300
+    },
     thumb: {
         // marginTop:50,
-        width: 320,
-        height:320,
         marginTop:5,
         marginBottom:5,
     },

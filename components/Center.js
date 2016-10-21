@@ -74,6 +74,15 @@ class Center extends Component{
         }
     }
 
+    getMyFavor(){
+        if(this.state.iflogin==1){
+        fetch("https://back.10000h.top/getMyFavor/"+this.state.phone).then(response2=>response2.json()).then(
+            (responseText2)=>{
+                console.log(responseText2);
+            });
+        }
+    }
+
     _toallmyarticle(){
         let _this = this;
         const { navigator } = this.props;
@@ -151,7 +160,7 @@ class Center extends Component{
                                 <Image source={require('../images/toright.png')} style={styles.listViewPic}/>
                             </View>
                         </TouchableHighlight>
-                        <TouchableHighlight onPress={this.hellopress.bind(this)}>
+                        <TouchableHighlight onPress={this.getMyFavor.bind(this)}>
                             <View style={styles.listView}>
                                 <Text style={styles.listViewText}>我赞过的</Text>
                                 <Image source={require('../images/toright.png')} style={styles.listViewPic}/>

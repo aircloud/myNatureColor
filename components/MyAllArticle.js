@@ -41,7 +41,8 @@ export default class MyAllArticle extends Component{
         }).then(resp=>{
             this.setState ({
                 phone:resp.phone,
-                name:resp.name
+                name:resp.name,
+                islogin:1,
             });
             fetch("https://back.10000h.top/getuserarticle/"+resp.phone).then(response=>response.json()).then(
                 (responseText)=>{
@@ -53,7 +54,10 @@ export default class MyAllArticle extends Component{
                 });
             console.log(this.state);
         }).catch(err => {
-           //do nothing
+            this.setState({
+                islogin:0
+            });
+            //do nothing
             //理论上这种情况不是很可能发生
         });
     }
@@ -86,7 +90,7 @@ export default class MyAllArticle extends Component{
 
     render(){
 
-        if(this.state.ifgetArticle==1) {
+        if(this.state.ifgetArticle==1&&this.state.islogin==1) {
             return (
                 <View style={styles.MyAllArticleTopView}>
                     <View style={styles.MyAllArticleAddView}>
@@ -119,7 +123,7 @@ export default class MyAllArticle extends Component{
                 </View>
             )
         }
-        else{
+        else if(this.state.ifgetArticle==0&&this.state.islogin==1){
             return (
                 <View style={styles.MyAllArticleTopView}>
                     <View style={styles.MyAllArticleAddView}>
@@ -143,6 +147,20 @@ export default class MyAllArticle extends Component{
                                 style={[styles.centering,]}
                                 color="#333333"
                             />
+                        </View>
+                    </View>
+                </View>
+            )
+        }
+        else{
+            return (
+                <View style={styles.MyAllArticleTopView}>
+                    <View style={styles.myAllInfo}>
+                        <View style={styles.myArticleView}>
+                            <Text style={styles.pleaseLogin}>请先登录
+                        </Text>
+                            <Text style={styles.pleaseLogin2}>&lt;左滑返回
+                            </Text>
                         </View>
                     </View>
                 </View>
@@ -186,10 +204,11 @@ var styles =  StyleSheet.create({
         marginTop:5,
     },
     myAllInfoText:{
-       marginBottom:10,
+        marginBottom:10,
     },
     myArticleView:{
         flex:1,
+        alignItems:'center'
     },
     myArticleListView:{
         flex:1,
@@ -200,5 +219,16 @@ var styles =  StyleSheet.create({
         justifyContent: 'center',
         padding: 8,
     },
+    pleaseLogin:{
+        marginTop:120,
+        fontSize:24,
+        color:"#999999",
+    },
+    pleaseLogin2:{
+        marginTop:10,
+        fontSize:14,
+        color:"#4A90E2",
+        opacity:0.8
+    }
 
 });
