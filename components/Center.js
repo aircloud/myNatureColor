@@ -18,6 +18,8 @@ import Login from './Login';
 import {GlobalStorage} from './Storage';
 import {getIfPraise,getAllarticle,userlogin,usernotlogin,userlogout} from "../actions";
 import MyAllArticle from './MyAllArticle';
+import SquareListView from './SquareListView';
+
 
 class Center extends Component{
 
@@ -74,12 +76,33 @@ class Center extends Component{
         }
     }
 
-    getMyFavor(){
+    _getMyFavor(){
         if(this.state.iflogin==1){
         fetch("https://back.10000h.top/getMyFavor/"+this.state.phone).then(response2=>response2.json()).then(
             (responseText2)=>{
-                console.log(responseText2);
+                // console.log(responseText2);
+                const { navigator } = this.props;
+                console.log("to my article");
+                if(navigator) {
+                    navigator.push({
+                        name: 'SquareListView',
+                        component: SquareListView,
+                        params: {
+                            navigator:{navigator},
+                            dispatch:this.props.dispatch,
+                            appUserStatus:this.props.appUserStatus,
+                            allAppArticles:responseText2,
+                        }
+                    });
+                }
             });
+        }
+        else{
+            // please login
+            Alert.alert(
+                'Attention',
+                '请先登录后查看',
+            );
         }
     }
 
@@ -94,7 +117,8 @@ class Center extends Component{
                 params: {
                     navigator:{navigator},
                     dispatch:_this.props.dispatch,
-                    appUserStatus:_this.props.appUserStatus
+                    appUserStatus:_this.props.appUserStatus,
+
                 }
             });
         }
@@ -160,7 +184,7 @@ class Center extends Component{
                                 <Image source={require('../images/toright.png')} style={styles.listViewPic}/>
                             </View>
                         </TouchableHighlight>
-                        <TouchableHighlight onPress={this.getMyFavor.bind(this)}>
+                        <TouchableHighlight onPress={this._getMyFavor.bind(this)}>
                             <View style={styles.listView}>
                                 <Text style={styles.listViewText}>我赞过的</Text>
                                 <Image source={require('../images/toright.png')} style={styles.listViewPic}/>
@@ -228,7 +252,7 @@ class Center extends Component{
                                 <Image source={require('../images/toright.png')} style={styles.listViewPic}/>
                             </View>
                         </TouchableHighlight>
-                        <TouchableHighlight onPress={this.hellopress.bind(this)}>
+                        <TouchableHighlight onPress={this._getMyFavor.bind(this)}>
                             <View style={styles.listView}>
                                 <Text style={styles.listViewText}>我赞过的</Text>
                                 <Image source={require('../images/toright.png')} style={styles.listViewPic}/>

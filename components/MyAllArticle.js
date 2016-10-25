@@ -102,7 +102,6 @@ export default class MyAllArticle extends Component{
                                     上传稿件
                                 </Text>
                             </View>
-
                         </TouchableHighlight>
                     </View>
                     <View style={styles.myAllInfo}>

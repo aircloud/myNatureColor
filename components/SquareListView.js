@@ -16,7 +16,8 @@ import {
     RecyclerViewBackedScrollView,
     TouchableHighlight,
     Text,
-    Navigator
+    Navigator,
+    ActivityIndicator
 } from 'react-native';
 
 import SquareListDetail from "./SquareListDetail";
@@ -127,6 +128,9 @@ export default class SquareListView extends Component{
     _renderRow(rowData, sectionID, rowID,) {
         console.log("from SquareListView:",rowData);
         var thisBackGroundColor=rowData.backgroundColor;
+        var loadID = "load"+rowID;
+        var thisOpacity = this.state[loadID]?0:1;
+        console.log( this.state[loadID]);
         return (
             <View>
                 <View style={[styles.row,{backgroundColor:thisBackGroundColor}]}>
@@ -144,7 +148,7 @@ export default class SquareListView extends Component{
                     <TouchableHighlight activeOpacity={1} underlayColor="rgba(255,255,255,0)" onPress={() => {
                         this._pressRow(rowData);
                     }}>
-                        <Image style={styles.thumb} source={{uri:rowData.image_uri}} />
+                        <Image style={styles.thumb} source={{uri:rowData.image_uri}} defaultSource={require("../images/loading2.png")}/>
                     </TouchableHighlight>
                 </View>
             </View>
@@ -208,6 +212,11 @@ var styles = StyleSheet.create({
         flex:1,
         fontSize:14,
         color:"#666666"
-    }
+    },
+    centering: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: 8,
+    },
 });
 
