@@ -25,8 +25,9 @@ var PAGE_SIZE = 20;
 // var XHRExampleFetch = require('./XHRExampleFetch');
 // var XHRExampleOnTimeOut = require('./XHRExampleOnTimeOut');
 // var XHRExampleCookies = require('./XHRExampleCookies');
-
+import {GlobalStorage} from './Storage';
 import ColorImageResult from './ColorImageResult';
+import {showuploadtoast,hideuploadtoast} from '../actions';
 
 export default class ColorImageUpload extends  Component {
 
@@ -37,7 +38,26 @@ export default class ColorImageUpload extends  Component {
             uploadProgress: null,
             textParams: [],
             randomPhoto: null,
+            calculate:false,
         };
+
+        GlobalStorage.load({
+            key:'user',
+            autoSync:true,
+            syncInBackground: false,
+        }).then(resp=>{
+            this.setState ({
+                iflogin:1,
+                phone:resp.phone,
+                name:resp.name
+            });
+            console.log(this.state);
+        }).catch(err => {
+            this.setState ({
+                iflogin:0,
+            });
+            console.log(this.state);
+        });
     }
 
     componentDidMount() {
@@ -48,30 +68,9 @@ export default class ColorImageUpload extends  Component {
         });
     }
 
-    // _fetchRandomPhoto() {
-    //     CameraRoll.getPhotos(
-    //         {first: PAGE_SIZE}
-    //     ).then(
-    //         (data) => {
-    //             if (!this._isMounted) {
-    //                 return;
-    //             }
-    //             var edges = data.edges;
-    //             var edge = edges[Math.floor(Math.random() * edges.length)];
-    //             var randomPhoto = edge && edge.node && edge.node.image;
-    //             if (randomPhoto) {
-    //                 this.setState({randomPhoto});
-    //             }
-    //             console.log(randomPhoto);
-    //         },
-    //         (error) => {
-    //             console.log("some error");
-    //         }
-    //     );
-    // }
-
     _upload()
     {
+        var dispatch = this.props.dispatch;
         var xhr = new XMLHttpRequest();
         xhr.open('POST', 'https://back.10000h.top/file_upload');
         // xhr.open('POST', 'http://localhost:3000/file_upload');
@@ -85,10 +84,10 @@ export default class ColorImageUpload extends  Component {
                 return;
             }
             else{
-                AlertIOS.alert(
-                    'Upload succeed',
-                    'Expected HTTP 200 OK response, got ' + xhr.status
-                );
+                // AlertIOS.alert(
+                //     'Upload succeed',
+                //     'Expected HTTP 200 OK response, got ' + xhr.status
+                // );
                 console.log(xhr.responseText);
                 let _this = this;
                 const { navigator } = this.props;
@@ -111,12 +110,25 @@ export default class ColorImageUpload extends  Component {
         formdata.append("height",this.state.imageHeight);
         formdata.append("colorNumber",this.props.colorNumber);
         formdata.append("contrastOffset",this.props.contrastOffset);
+        if(this.state.iflogin==0)
+            formdata.append("user_phone"," ");
+        else
+            formdata.append("user_phone",this.state.phone);
+
         this.state.textParams.forEach(
             (param) => formdata.append(param.name, param.value)
         );
         xhr.upload.onprogress = (event) => {
             if (event.lengthComputable) {
                 this.setState({uploadProgress: event.loaded / event.total});
+                if(this.state.uploadProgress>=0.99){
+                    console.log("should be here");
+                    this.setState({
+                        calculate:true,
+                        uploadProgress:"计算中..."
+                    });
+                    dispatch(showuploadtoast);
+                }
             }
         };
         xhr.send(formdata);
@@ -127,8 +139,13 @@ export default class ColorImageUpload extends  Component {
     render(){
         var uploadButtonLabel = this.state.isUploading ? 'Uploading...' : '生成配色';
         var uploadProgress = this.state.uploadProgress;
-        if (uploadProgress !== null) {
-            uploadButtonLabel += ' ' + Math.round(uploadProgress * 100) + '%';
+        if(!this.state.calculate) {
+            if (uploadProgress !== null) {
+                uploadButtonLabel += ' ' + Math.round(uploadProgress * 100) + '%';
+            }
+        }
+        else{
+            uploadButtonLabel=this.state.uploadProgress;
         }
         var uploadButton = (
             <View style={styles.uploadButtonBox}>

@@ -1,6 +1,8 @@
 package com.mynaturecolor;
 
 import com.facebook.react.ReactActivity;
+import com.yoloci.fileupload.FileUploadPackage;
+import com.remobile.toast.RCTToastPackage;
 
 public class MainActivity extends ReactActivity {
 

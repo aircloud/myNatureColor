@@ -13,26 +13,41 @@ import {
     Navigator
 } from 'react-native';
 
-// import UploadSilder from './UploadSilder';
 import ColorImageUpload from './ColorImageUpload';
-
+import Toast, {DURATION} from 'react-native-easy-toast'
 
 export default class UploadInfo extends Component{
 
     constructor(props) {
         super(props);
+        console.log('ToastShow',this.props.ToastShow);
         this.state = {
+            ToastShow:this.props.ToastShow,
             photoSoure: {
                 uri:this.props.imageUri,
                 isStatic: true,
             },
             contrastOffset:1,
             colorNumber:2,
+            toastShow:false,
         };
+    }
+
+    componentDidMount() {
+        // this.refs.toast.show("计算中...",5000);
+    }
+
+    _toastClose(){
+        this.refs.toast.close();
     }
 
     render(){
         console.log(this.state.photoSoure);
+        var _that = this;
+        if(this.state.ToastShow.show==true){
+            console.log('ToastShow',this.state.ToastShow);
+            this.refs.toast.show("计算中...",5000);
+        }
         return(
             <View>
                 <StatusBar
@@ -70,11 +85,13 @@ export default class UploadInfo extends Component{
                                       navigator = {this.props.navigator}
                                       colorNumber={this.state.colorNumber}
                                       contrastOffset={this.state.contrastOffset}
+                                      dispatch = {this.props.dispatch}
                     />
                     <View style={styles.tipView}>
                         <Text style={styles.tip}>左滑返回</Text>
                     </View>
                 </View>
+                <Toast ref="toast"/>
             </View>
         )
     }

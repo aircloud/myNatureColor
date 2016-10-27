@@ -2,7 +2,7 @@
  * Created by hh on 4/10/2016.
  */
 import { combineReducers } from 'redux'
-import {GET_IF_PRAISE,RECEIVE_ALL_ARTICLE,USER_LOGIN,USER_LOG_OUT,USER_NOT_LOGIN,ADD_USER_FAVOR} from '../actions';
+import {GET_IF_PRAISE,RECEIVE_ALL_ARTICLE,USER_LOGIN,USER_LOG_OUT,USER_NOT_LOGIN,ADD_USER_FAVOR,SHOW_UPLOAD_TOAST,HIDE_UPLOAD_TOAST} from '../actions';
 
 var ALLARTICLE = [
     {source:{uri: "assets-library://asset/asset.JPG?id=99D53A1F-FEEF-40E1-8BB3-7DD55A43C8B7&ext=JPG", isStatic: true},backgroundColor:"#a6e2e3",ifPraise:-1},
@@ -14,7 +14,11 @@ var ALLARTICLE = [
 ];
 
 var USERDATA= {
-  iflogin:0,
+    iflogin:0,
+};
+
+var INITIALUTS = {
+    show:false
 };
 
 const allArticles = (state=ALLARTICLE,action) => {
@@ -44,9 +48,25 @@ const appuser = (state=USERDATA,action)=>{
             return state;
     }
 };
+
+const uploadToastShow = (state=INITIALUTS,action)=>{
+    switch (action.type){
+        case SHOW_UPLOAD_TOAST:
+            state={show:true};
+            return state;
+        case HIDE_UPLOAD_TOAST:
+            state={show:false};
+            return state;
+        default:
+            return state;
+    }
+};
+
+
 const rootReducer = combineReducers({
     allArticles,
-    appuser
+    appuser,
+    uploadToastShow
 });
 
 export default rootReducer;

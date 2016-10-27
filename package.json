@@ -6,12 +6,15 @@
     "start": "node node_modules/react-native/local-cli/cli.js start"
   },
   "dependencies": {
-    "@remobile/react-native-toast": "^1.0.4",
+    "@remobile/react-native-toast": "^1.0.5",
     "multer": "^1.2.0",
     "react": "15.3.2",
     "react-native": "0.34.1",
+    "react-native-easy-toast": "^1.0.2",
     "react-native-fileupload": "^1.2.0",
+    "react-native-image-picker": "^0.22.12",
     "react-native-imagepicker": "^1.0.0",
+    "react-native-simple-toast": "0.0.4",
     "react-native-storage": "^0.1.4",
     "react-redux": "^4.4.5",
     "react-timer-mixin": "^0.13.3",

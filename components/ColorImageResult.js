@@ -96,7 +96,6 @@ export default class ColorImageUpload extends Component {
 
 var styles = StyleSheet.create({
     topView:{
-
         flexDirection:"column",
         backgroundColor:"#F3F4F8",
         marginBottom:50,

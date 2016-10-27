@@ -17,8 +17,9 @@ import {
 // import TimerMixin from 'react-timer-mixin';
 import imagePicker from 'react-native-imagepicker';
 import UploadInfo from './UploadInfo';
+import { connect } from 'react-redux';
 
-export default class Color extends Component{
+class Color extends Component{
 
     constructor(props) {
         super(props);
@@ -96,7 +97,9 @@ export default class Color extends Component{
                         _this.setState({
                             user: user
                         })
-                    }
+                    },
+                    dispatch:_this.props.dispatch,
+                    ToastShow:_this.props.uploadToastShow
                 }
             });
         }
@@ -116,7 +119,9 @@ export default class Color extends Component{
                     params: {
                         id: 1,
                         imageUri:image,
-                        _getuser:_this.props._getuser
+                        _getuser:_this.props._getuser,
+                        dispatch:_this.props.dispatch,
+                        ToastShow:_this.props.uploadToastShow
                     }
                 });
             }
@@ -229,4 +234,12 @@ const styles = StyleSheet.create({
         marginTop:10
     }
 });
-AppRegistry.registerComponent('Color', () => Color);
+function select(state){
+    return{
+        allAppArticles:state.allArticles,
+        appUserStatus:state.appuser,
+        uploadToastShow:state.uploadToastShow
+    }
+}
+// AppRegistry.registerComponent('Square', () => Square);
+export default connect(select)(Color);

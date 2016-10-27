@@ -10,6 +10,9 @@ export const USER_NOT_LOGIN = 'USER_NOT_LOGIN';
 
 export const ADD_USER_FAVOR = "ADD_USER_FAVOR";
 
+export const SHOW_UPLOAD_TOAST = "SHOW_UPLOAD_TOAST";
+export const HIDE_UPLOAD_TOAST = "HIDE_UPLOAD_TOAST";
+
 export const getIfPraise = userid => ({
    type: GET_IF_PRAISE,
    praise:[1,0,0,1,0,0]
@@ -44,3 +47,12 @@ export const adduserfavor = sequence => ({
    type:ADD_USER_FAVOR,
    content:sequence,
 });
+
+export const showuploadtoast = ()=>({
+   type:SHOW_UPLOAD_TOAST
+});
+
+export const hideuploadtoast = ()=>({
+   type:HIDE_UPLOAD_TOAST
+});
+

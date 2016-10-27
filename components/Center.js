@@ -20,6 +20,10 @@ import {getIfPraise,getAllarticle,userlogin,usernotlogin,userlogout} from "../ac
 import MyAllArticle from './MyAllArticle';
 import SquareListView from './SquareListView';
 
+import Toast, {DURATION} from 'react-native-easy-toast'
+// import Toast from  '@remobile/react-native-toast';
+// import Toast from 'react-native-simple-toast';
+import CenterMyHistory from './CenterMyHistory';
 
 class Center extends Component{
 
@@ -28,6 +32,7 @@ class Center extends Component{
         var that = this;
         that.state={};
         console.log("constructor");
+
         GlobalStorage.load({
             key:'user',
             autoSync:true,
@@ -52,6 +57,8 @@ class Center extends Component{
 
     hellopress(){
         console.log("hello");
+        // Toast.showShortCenter.bind(null, "this is a message");
+        this.refs.toast.show('hello world!');
     }
 
     _tologin(){
@@ -103,6 +110,23 @@ class Center extends Component{
                 'Attention',
                 '请先登录后查看',
             );
+        }
+    }
+
+    _toMyHistory(){
+        let _this = this;
+        const { navigator } = this.props;
+        console.log("to my article");
+        if(navigator) {
+            navigator.push({
+                name: 'CenterMyHistory',
+                component: CenterMyHistory,
+                params: {
+                    navigator:{navigator},
+                    dispatch:_this.props.dispatch,
+                    appUserStatus:_this.props.appUserStatus,
+                }
+            });
         }
     }
 
@@ -172,7 +196,7 @@ class Center extends Component{
                         </View>
                     </View>
                     <View style={styles.mainView}>
-                        <TouchableHighlight onPress={this.hellopress.bind(this)}>
+                        <TouchableHighlight onPress={this._toMyHistory.bind(this)}>
                             <View style={styles.listView}>
                                 <Text style={styles.listViewText}>配色历史</Text>
                                 <Image source={require('../images/toright.png')} style={styles.listViewPic}/>
@@ -214,7 +238,7 @@ class Center extends Component{
                             </View>
                         </TouchableHighlight>
                     </View>
-
+                    <Toast ref="toast"/>
                 </View>
             )
         }
@@ -240,7 +264,7 @@ class Center extends Component{
                         </View>
                     </View>
                     <View style={styles.mainView}>
-                        <TouchableHighlight onPress={this.hellopress.bind(this)}>
+                        <TouchableHighlight onPress={this._toMyHistory.bind(this)}>
                             <View style={styles.listView}>
                                 <Text style={styles.listViewText}>配色历史</Text>
                                 <Image source={require('../images/toright.png')} style={styles.listViewPic}/>
@@ -282,7 +306,7 @@ class Center extends Component{
                             </View>
                         </TouchableHighlight>
                     </View>
-
+                    <Toast ref="toast"/>
                 </View>
             )
         }
