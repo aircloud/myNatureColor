@@ -18,6 +18,7 @@ import {
     CameraRoll,
     TextInput,
 } from 'react-native';
+import {UrlPrefix} from "./configs/config";
 
 export default class UploadMyArticleStep2_editinfo extends Component{
 

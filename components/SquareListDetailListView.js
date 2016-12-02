@@ -27,6 +27,8 @@ import isObjectEmpty from  './tools/Object.tools';
 //     {source:{uri: "assets-library://asset/asset.JPG?id=106E99A1-4F6A-45A2-B320-B0AD4A8E8473&ext=JPG", isStatic: true}},
 //     {source:{uri: "assets-library://asset/asset.JPG?id=99D53A1F-FEEF-40E1-8BB3-7DD55A43C8B7&ext=JPG", isStatic: true}},
 // ];
+import {UrlPrefix} from "./configs/config";
+
 export default class SquareListDetailListView extends Component{
 
     constructor(props){

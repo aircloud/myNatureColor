@@ -22,6 +22,9 @@ import {
 
 import {GlobalStorage} from './Storage';
 
+import {UrlPrefix} from "./configs/config";
+
+
 var {height, width} = Dimensions.get('window');
 
 export default class CenterEachHistoryBlockList extends Component{

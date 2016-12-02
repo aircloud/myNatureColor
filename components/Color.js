@@ -18,6 +18,7 @@ import {
 import imagePicker from 'react-native-imagepicker';
 import UploadInfo from './UploadInfo';
 import { connect } from 'react-redux';
+import {UrlPrefix} from "./configs/config";
 
 class Color extends Component{
 

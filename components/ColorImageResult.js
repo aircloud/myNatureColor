@@ -27,6 +27,7 @@ var PAGE_SIZE = 20;
 // var XHRExampleOnTimeOut = require('./XHRExampleOnTimeOut');
 // var XHRExampleCookies = require('./XHRExampleCookies');
 import ColorResultList from './ColorResultList';
+import {UrlPrefix} from "./configs/config";
 
 export default class ColorImageUpload extends Component {
     constructor(props) {

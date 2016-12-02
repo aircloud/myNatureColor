@@ -28,6 +28,7 @@ var PAGE_SIZE = 20;
 import {GlobalStorage} from './Storage';
 import ColorImageResult from './ColorImageResult';
 import {showuploadtoast,hideuploadtoast} from '../actions';
+import {UrlPrefix} from "./configs/config";
 
 export default class ColorImageUpload extends  Component {
 

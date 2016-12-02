@@ -20,6 +20,8 @@ import Toast from "react-native-toast";
 import {GlobalStorage} from './Storage';
 import {trim} from "./tools/String.tools";
 
+import {UrlPrefix} from "./configs/config";
+
 export default class Register extends Component{
 
     constructor(props){

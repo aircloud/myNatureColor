@@ -54,6 +54,7 @@ var {height, width} = Dimensions.get('window');
 var eachPhotoWidth = width/4.0;
 var eachPhotoHeight = width/4.0;
 console.log(eachPhotoWidth);
+import {UrlPrefix} from "./configs/config";
 
 
 class ScalePhoto extends Component{

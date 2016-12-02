@@ -17,6 +17,7 @@ import {
 
 import {GlobalStorage} from './Storage';
 import {getIfPraise,getAllarticle,userlogin,usernotlogin,userlogout} from "../actions";
+import {UrlPrefix} from "./configs/config";
 
 export default class TextExplain extends Component{
 

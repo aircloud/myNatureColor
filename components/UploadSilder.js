@@ -13,6 +13,7 @@ import {
     Navigator,
     Slider
 } from 'react-native';
+import {UrlPrefix} from "./configs/config";
 
 
 export default class UploadSilder extends Component{

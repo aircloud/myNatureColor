@@ -15,6 +15,7 @@ import {
 
 import ColorImageUpload from './ColorImageUpload';
 import Toast, {DURATION} from 'react-native-easy-toast'
+import {UrlPrefix} from "./configs/config";
 
 export default class UploadInfo extends Component{
 

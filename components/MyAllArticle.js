@@ -24,6 +24,7 @@ import {getIfPraise,getAllarticle,userlogin,usernotlogin,userlogout} from "../ac
 import PhotoSelector from './PhotoSelector';
 // import UploadMyArticleStep2 from './UploadMyArticleStep2';
 import ArticleListView from './ArticleListView';
+import {UrlPrefix} from "./configs/config";
 
 export default class MyAllArticle extends Component{
 

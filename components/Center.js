@@ -21,9 +21,10 @@ import MyAllArticle from './MyAllArticle';
 import SquareListView from './SquareListView';
 
 import Toast, {DURATION} from 'react-native-easy-toast'
-// import Toast from  '@remobile/react-native-toast';
-// import Toast from 'react-native-simple-toast';
+
 import CenterMyHistory from './CenterMyHistory';
+
+import {UrlPrefix} from "./configs/config";
 
 class Center extends Component{
 
@@ -85,7 +86,7 @@ class Center extends Component{
 
     _getMyFavor(){
         if(this.state.iflogin==1){
-        fetch("https://back.10000h.top/getMyFavor/"+this.state.phone).then(response2=>response2.json()).then(
+        fetch(UrlPrefix+"getMyFavor/"+this.state.phone).then(response2=>response2.json()).then(
             (responseText2)=>{
                 // console.log(responseText2);
                 const { navigator } = this.props;
@@ -106,27 +107,33 @@ class Center extends Component{
         }
         else{
             // please login
-            Alert.alert(
-                'Attention',
-                '请先登录后查看',
-            );
+            // Alert.alert(
+            //     'Attention',
+            //     '请先登录后查看',
+            // );
+            this.refs.toast.show('请先登录后查看');
         }
     }
 
     _toMyHistory(){
-        let _this = this;
-        const { navigator } = this.props;
-        console.log("to my article");
-        if(navigator) {
-            navigator.push({
-                name: 'CenterMyHistory',
-                component: CenterMyHistory,
-                params: {
-                    navigator:{navigator},
-                    dispatch:_this.props.dispatch,
-                    appUserStatus:_this.props.appUserStatus,
-                }
-            });
+        if(this.state.iflogin == 0) {
+            this.refs.toast.show('请先登录后查看');
+        }
+        else {
+            let _this = this;
+            const {navigator} = this.props;
+            console.log("to my article");
+            if (navigator) {
+                navigator.push({
+                    name: 'CenterMyHistory',
+                    component: CenterMyHistory,
+                    params: {
+                        navigator: {navigator},
+                        dispatch: _this.props.dispatch,
+                        appUserStatus: _this.props.appUserStatus,
+                    }
+                });
+            }
         }
     }
 

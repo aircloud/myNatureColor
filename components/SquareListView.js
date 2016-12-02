@@ -23,6 +23,7 @@ import {
 import SquareListDetail from "./SquareListDetail";
 
 import {adduserfavor} from "../actions";
+import {UrlPrefix} from "./configs/config";
 
 
 export default class SquareListView extends Component{

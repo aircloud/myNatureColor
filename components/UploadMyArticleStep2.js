@@ -26,6 +26,7 @@ import UploadMyArticleStep2_edittitle from "./UploadMyArticleStep2_edittitle";
 import PhotoSelector from './PhotoSelector';
 import PhotoSelector2 from './PhotoSelector2';
 import {GlobalStorage} from './Storage';
+import {UrlPrefix} from "./configs/config";
 
 
 export default class UploadMyArticleStep2 extends Component{

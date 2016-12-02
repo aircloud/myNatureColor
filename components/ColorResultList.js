@@ -17,6 +17,7 @@ import {
     Text,
     Navigator
 } from 'react-native';
+import {UrlPrefix} from "./configs/config";
 
 
 export default class ColorResultList extends Component{

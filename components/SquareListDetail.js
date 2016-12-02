@@ -22,6 +22,7 @@ import {
 
 import SquareListDetailListView from './SquareListDetailListView';
 import isObjectEmpty from  './tools/Object.tools';
+import {UrlPrefix} from "./configs/config";
 
 export default class SquareListDetail extends Component{
     constructor(props){

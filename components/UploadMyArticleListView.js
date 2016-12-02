@@ -20,6 +20,7 @@ import {
 } from 'react-native';
 
 import UploadMyArticleStep2 from './UploadMyArticleStep2';
+import {UrlPrefix} from "./configs/config";
 
 export default class UploadMyArticleListView  extends Component{
 

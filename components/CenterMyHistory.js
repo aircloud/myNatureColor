@@ -23,6 +23,8 @@ import {GlobalStorage} from './Storage';
 import  CenterMyHistoryList  from './CenterMyHistoryList';
 var Toast = require('react-native-toast');
 
+import {UrlPrefix} from "./configs/config";
+
 export default class CenterMyHistory extends Component{
     constructor(props) {
         super(props);

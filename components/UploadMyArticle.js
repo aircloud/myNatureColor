@@ -21,6 +21,7 @@ import {
 import {GlobalStorage} from './Storage';
 import {getIfPraise,getAllarticle,userlogin,usernotlogin,userlogout} from "../actions";
 import UploadMyArticleListView from './UploadMyArticleListView';
+import {UrlPrefix} from "./configs/config";
 
 export default class UploadMyArticle extends Component{
 

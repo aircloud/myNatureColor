@@ -21,6 +21,7 @@ import Toast from "react-native-toast";
 import {GlobalStorage} from './Storage';
 import {trim} from "./tools/String.tools";
 import {getIfPraise,getAllarticle,userlogin,usernotlogin,userlogout} from "../actions";
+import {UrlPrefix} from "./configs/config";
 
 export default class Login extends Component{
 

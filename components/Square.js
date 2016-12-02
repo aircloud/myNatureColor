@@ -16,6 +16,7 @@ import { connect } from 'react-redux'
 
 import SquareListView from './SquareListView';
 import {GlobalStorage} from './Storage';
+import {UrlPrefix} from "./configs/config";
 
 
 class Square extends Component{
