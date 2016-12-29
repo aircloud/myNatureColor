@@ -170,7 +170,7 @@ export default class Login extends Component{
 
                 <View style={styles.logoView}>
 
-                    <Image source={require('../images/naco2.png')} style={styles.logoPng}/>
+                    <Image source={require('../images/naco7.png')} style={styles.logoPng}/>
 
                 </View>
                 <View style={styles.loginMain}>
@@ -256,18 +256,18 @@ var styles = StyleSheet.create({
         flex:2,
     },
     logoView:{
-        height:250,
+        height:100,
         alignItems:'center',
         flexDirection:'column',
+        justifyContent:'center',
     },
     logoPng:{
-        width:75,
-        height:75,
-        marginTop:88
+        width:150,
+        height:45,
     },
     loginMain:{
         width:320,
-        height:300
+        height:240
     },
     vertifyTestView:{
         borderColor: '#333333', borderWidth: 1,
@@ -308,7 +308,7 @@ var styles = StyleSheet.create({
         fontWeight: '500',
     },
     toregister:{
-        marginTop:60,
+        marginTop:20,
         alignItems:"center",
     },
     toregisterText:{

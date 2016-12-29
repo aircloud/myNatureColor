@@ -26,6 +26,10 @@ import CenterMyHistory from './CenterMyHistory';
 
 import {UrlPrefix} from "./configs/config";
 
+import CenterCopyright from "./CenterCopyright";
+
+import CenterExplain from "./CenterExplain";
+
 class Center extends Component{
 
     constructor(props) {
@@ -41,6 +45,8 @@ class Center extends Component{
         }).then(resp=>{
             console.log(resp);
             that.setState ({
+                titleLogImg:require('../images/logo4.png'),
+                titleImg:require('../images/logo0.png'),
                 iflogin:1,
                 phone:resp.phone,
                 name:resp.name
@@ -49,17 +55,48 @@ class Center extends Component{
         }).catch(err => {
             console.log("error");
             that.setState ({
+                titleLogImg:require('../images/logo4.png'),
+                titleImg:require('../images/logo0.png'),
                 iflogin:0,
             });
             console.log(that.state);
         });
     }
 
-
     hellopress(){
         console.log("hello");
         // Toast.showShortCenter.bind(null, "this is a message");
         this.refs.toast.show('hello world!');
+    }
+
+    _toExplain(){
+        let _this = this;
+        const { navigator } = this.props;
+        if(navigator) {
+            navigator.push({
+                name: 'CenterExplain',
+                component: CenterExplain,
+                params: {
+                    navigator:{navigator},
+                    dispatch:_this.props.dispatch
+                }
+            });
+        }
+    }
+
+    _toCopyright(){
+        let _this = this;
+        const { navigator } = this.props;
+        if(navigator) {
+            navigator.push({
+                name: 'CenterCopyright',
+                component: CenterCopyright,
+                params: {
+                    navigator:{navigator},
+                    dispatch:_this.props.dispatch
+                }
+            });
+        }
     }
 
     _tologin(){
@@ -192,7 +229,7 @@ class Center extends Component{
                     />
                     <View style={styles.infoView}>
                         <View style={styles.infoViewPicView}>
-                            <Image source={require('../images/b-10.gif')} style={styles.infoViewPic}/>
+                            <Image source={this.state.titleImg} style={styles.infoViewPic}/>
                         </View>
                         <View style={styles.infoTextView0}>
                             <TouchableHighlight activeOpacity={1} underlayColor="rgba(255,255,255,0)" onPress={this._tologin.bind(this)}>
@@ -224,13 +261,13 @@ class Center extends Component{
 
                         <View style={styles.listViewSpace}/>
 
-                        <TouchableHighlight onPress={this.hellopress.bind(this)}>
+                        <TouchableHighlight onPress={this._toExplain.bind(this)}>
                             <View style={styles.listView}>
                                 <Text style={styles.listViewText}>投稿说明</Text>
                                 <Image source={require('../images/toright.png')} style={styles.listViewPic}/>
                             </View>
                         </TouchableHighlight>
-                        <TouchableHighlight onPress={this.hellopress.bind(this)}>
+                        <TouchableHighlight onPress={this._toCopyright.bind(this)}>
                             <View style={styles.listView}>
                                 <Text style={styles.listViewText}>版权信息</Text>
                                 <Image source={require('../images/toright.png')} style={styles.listViewPic}/>
@@ -259,7 +296,7 @@ class Center extends Component{
                     />
                     <View style={styles.infoView}>
                         <View style={styles.infoViewPicView}>
-                            <Image source={require('../images/b-10.gif')} style={styles.infoViewPic}/>
+                            <Image source={this.state.titleLogImg} style={styles.infoViewPic}/>
                         </View>
                         <View style={styles.infoTextView}>
                             <Text style={styles.infoTextName}>
@@ -292,13 +329,13 @@ class Center extends Component{
 
                         <View style={styles.listViewSpace}/>
 
-                        <TouchableHighlight onPress={this.hellopress.bind(this)}>
+                        <TouchableHighlight onPress={this._toExplain.bind(this)}>
                             <View style={styles.listView}>
                                 <Text style={styles.listViewText}>投稿说明</Text>
                                 <Image source={require('../images/toright.png')} style={styles.listViewPic}/>
                             </View>
                         </TouchableHighlight>
-                        <TouchableHighlight onPress={this.hellopress.bind(this)}>
+                        <TouchableHighlight onPress={this._toCopyright.bind(this)}>
                             <View style={styles.listView}>
                                 <Text style={styles.listViewText}>版权信息</Text>
                                 <Image source={require('../images/toright.png')} style={styles.listViewPic}/>

@@ -11,7 +11,8 @@ import {
     Image,
     TabBarIOS,
     View,
-    Navigator
+    Navigator,
+    NetInfo
 } from 'react-native';
 import { connect } from 'react-redux'
 import {getIfPraise,getAllarticle,userlogin,usernotlogin,userlogout} from "./actions";
@@ -41,9 +42,17 @@ class HomeApp extends Component{
         };
     }
 
+    componentWillMount() {
+        NetInfo.fetch().done((status)=> {
+            console.log('Status:' + status);
+        });
+        //监听网络状态改变
+        NetInfo.addEventListener('change', this.handleConnectivityChange.bind(this));
+    }
+
     componentDidMount() {
 
-        const {dispatch } =this.props;
+        var {dispatch} =this.props;
 
         GlobalStorage.load({
             key:'user',
@@ -57,7 +66,29 @@ class HomeApp extends Component{
             console.log("from homeapp:no data user");
         });
 
+        // NetInfo.isConnected.fetch().done((isConnected) => {
+        //     console.log('First, is ' + (isConnected ? 'online' : 'offline'));
+        // });
+
         dispatch(getAllarticle());
+
+    }
+
+    handleConnectivityChange(status) {
+
+        const {dispatch} =this.props;
+
+        console.log('status change:' + status);
+
+        if(status=="wifi" || status == "cell" || status == "unknown"){
+            dispatch(getAllarticle());
+            NetInfo.removeEventListener('change', this.handleConnectivityChange.bind(this));
+        }
+    }
+
+    componentWillUnMount() {
+        console.log("componentWillUnMount");
+        NetInfo.removeEventListener('change', this.handleConnectivityChange.bind(this));
     }
 
     _renderContent(color, page) {
@@ -101,8 +132,8 @@ class HomeApp extends Component{
                 <TabBarIOS.Item
                     renderAsOriginal
                     title="Color"
-                    icon={require('./images/Color.png')}
-                    selectedIcon={require('./images/relay.png')}
+                    icon={require('./images/logo.png')}
+                    selectedIcon={require('./images/logo0.png')}
                     selected={this.state.selectedTab === 'Color'}
                     onPress={() => {
                         this.setState({

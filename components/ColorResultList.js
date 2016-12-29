@@ -45,16 +45,19 @@ export default class ColorResultList extends Component{
 
     _genRows(pressData){
         var dataBlob = [];
+        console.log("pressData",pressData);
         for (var ii = 0; ii < pressData.length; ii++) {
             var pressedText = pressData[ii];
-            dataBlob[ii]={};
-            dataBlob[ii].backgroundColor="rgba("+pressedText.r1+","+pressedText.g1+","+pressedText.b1+",1)";
-            dataBlob[ii].backgroundColor2="#"+pressedText.r1.toString(16)+pressedText.g1.toString(16)+pressedText.b1.toString(16);
-            if(pressedText.darkness1>160){
-                dataBlob[ii].color="#333333";
-            }
-            else{
-                dataBlob[ii].color="#eeeeee";
+            if(pressData[ii]){
+                dataBlob[ii]={};
+                dataBlob[ii].backgroundColor="rgba("+pressedText.r1+","+pressedText.g1+","+pressedText.b1+",1)";
+                dataBlob[ii].backgroundColor2="#"+pressedText.r1.toString(16)+pressedText.g1.toString(16)+pressedText.b1.toString(16);
+                if(pressedText.darkness1>160){
+                    dataBlob[ii].color="#333333";
+                }
+                else{
+                    dataBlob[ii].color="#eeeeee";
+                }
             }
         }
         return dataBlob;

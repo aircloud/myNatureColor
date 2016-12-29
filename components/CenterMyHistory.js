@@ -51,10 +51,17 @@ export default class CenterMyHistory extends Component{
 
             fetch("https://back.10000h.top/gethistory/"+resp.phone).then((response)=>response.json()).then((responseText)=> {
                 console.log("getmyhistory",responseText);
-                this.setState({
-                    HistoryInfo : responseText,
-                    ifgot:1
-                })
+                if(responseText.length==0){
+                    this.setState({
+                        HistoryInfo : responseText,
+                        ifgot:2
+                    });
+                }
+                else
+                    this.setState({
+                        HistoryInfo : responseText,
+                        ifgot:1
+                    });
             });
 
         }).catch(err => {
@@ -68,18 +75,33 @@ export default class CenterMyHistory extends Component{
     render(){
         if(this.state.ifgot==1){
             return(
-                    <View style={styles.topView}>
-                        <View style={{flex:1}}>
-                            <CenterMyHistoryList detailInfo = {this.state.HistoryInfo} style={{flex:1}}/>
-                        </View>
+                <View style={styles.topView}>
+                    <View style={{flex:1}}>
+                        <CenterMyHistoryList detailInfo = {this.state.HistoryInfo} style={{flex:1}}/>
                     </View>
+                </View>
+            )
+        }
+        else if(this.state.ifgot == 2) {
+            return (
+                <ScrollView style={styles.topView} alwaysBounceHorizontal={false} bounces={false}>
+
+                    <View style={styles.mainView}>
+                        <Text style={styles.tipText}>
+                            暂时还没有配色历史记录
+                        </Text>
+                        <Text style={styles.tipText}>
+                            快去体验NACO的配色功能吧
+                        </Text>
+                    </View>
+                </ScrollView>
             )
         }
         else{
             return(
                 <ScrollView style={styles.topView} alwaysBounceHorizontal={false} bounces={false}>
 
-                    <View>
+                    <View style={styles.mainView}>
                         <View>
                             <Text>
                                 正在加载
@@ -105,4 +127,16 @@ var styles =  StyleSheet.create({
         flexWrap: 'wrap',
         // alignItems: 'flex-start',
     },
+    mainView:{
+        flex:1,
+        marginTop:20,
+        marginRight:15,
+        marginLeft:15,
+        alignItems:"center",
+
+    },
+    tipText:{
+        marginTop:15,
+        fontWeight:"500",
+    }
 });

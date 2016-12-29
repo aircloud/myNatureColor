@@ -31,7 +31,7 @@ class Color extends Component{
             number:0,
             camera:[require('../images/camera1.png'),require('../images/camera2.png'),require('../images/camera3.png')],
             library:[require('../images/library1.png'),require('../images/library2.png'),require('../images/library3.png')],
-            naco:[require('../images/naco1.png'),require('../images/naco2.png'),require('../images/naco3.png')],
+            naco:[require('../images/naco4.png'),require('../images/naco5.png'),require('../images/naco6.png')],
             imageSource:[require('../images/banner1.jpeg'),require('../images/banner2.jpeg'),require('../images/banner3.jpeg')]
         };
     }
@@ -105,12 +105,12 @@ class Color extends Component{
             });
         }
     }
-    getphotos(){
+    getphotosbyca(){
         let _this = this;
         imagePicker.open({
             takePhoto: true,
             useLastPhoto: false,
-            chooseFromLibrary: true,
+            chooseFromLibrary: false,
         }).then(function(image,height, width) {
             const { navigator } = _this.props;
             if(navigator) {
@@ -132,6 +132,35 @@ class Color extends Component{
         });
 
     }
+
+    getphotosbyli(){
+        let _this = this;
+        imagePicker.open({
+            takePhoto: false,
+            useLastPhoto: false,
+            chooseFromLibrary: true,
+        }).then(function(image,height, width) {
+            const { navigator } = _this.props;
+            if(navigator) {
+                navigator.push({
+                    name: 'UploadInfo',
+                    component: UploadInfo,
+                    params: {
+                        id: 1,
+                        imageUri:image,
+                        _getuser:_this.props._getuser,
+                        dispatch:_this.props.dispatch,
+                        ToastShow:_this.props.uploadToastShow
+                    }
+                });
+            }
+            console.log('image edit the source code', image,height,width);
+        }, function() {
+            console.log('user cancel');
+        });
+    }
+
+
     render(){
         let number = this.state.number;
         let changebackcolor=this.state.viewColor[number];
@@ -159,14 +188,14 @@ class Color extends Component{
 
                     <View style={styles.choiceView}>
 
-                        <TouchableOpacity onPress={this.getphotos.bind(this)} style={styles.choiceViewTouch}>
+                        <TouchableOpacity onPress={this.getphotosbyca.bind(this)} style={styles.choiceViewTouch}>
                             <Image source={cameraSource} style={styles.choiceViewImage}/>
                             <Text style={[styles.choiceViewText,{color:progresscolor}]}>
                                 CAMERA
                             </Text>
                         </TouchableOpacity>
 
-                        <TouchableOpacity onPress={this.getphotos.bind(this)} style={styles.choiceViewTouch}>
+                        <TouchableOpacity onPress={this.getphotosbyli.bind(this)} style={styles.choiceViewTouch}>
                             <Image source={librarySource} style={styles.choiceViewImage}/>
                             <Text style={[styles.choiceViewText,{color:progresscolor}]}>
                                 LIBRARY
@@ -211,15 +240,15 @@ const styles = StyleSheet.create({
     },
     naco:{
         marginTop:55,
-        width:75,
-        height:75,
+        width:160,
+        height:65,
         marginBottom:30,
     },
     choiceView:{
         width:320,
         flex:1,
         flexDirection:'row',
-        marginTop:35,
+        marginTop:55,
     },
     choiceViewImage:{
         width:40,
@@ -232,7 +261,8 @@ const styles = StyleSheet.create({
     },
     choiceViewText:{
         fontSize:18,
-        marginTop:10
+        marginTop:10,
+        fontWeight:"100",
     }
 });
 function select(state){
