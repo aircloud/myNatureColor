@@ -1,5 +1,7 @@
 ###在这里记下开发这个app
 
+由于资金问题，短时间内app没有办法上架，我制作了一个演示视频，地址<a href="https://v.qq.com/x/page/v03690kwvek.html">在这里</a>(https://v.qq.com/x/page/v03690kwvek.html)
+
 ####本app的功能：
 
 **NACO**

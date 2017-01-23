@@ -61,6 +61,13 @@ export default class ColorImageUpload extends  Component {
         });
     }
 
+    componentWillUnMount() {
+        this.setState({
+            calculate:true,
+            uploadProgress:"生成配色"
+        });
+    }
+
     componentDidMount() {
         // this._fetchRandomPhoto();
         Image.getSize(this.props.uri, (imageWidth, imageHeight) => {
@@ -121,7 +128,7 @@ export default class ColorImageUpload extends  Component {
         );
         xhr.upload.onprogress = (event) => {
             if (event.lengthComputable) {
-                this.setState({uploadProgress: event.loaded / event.total});
+                this.setState({uploadProgress: (event.loaded / event.total).toFixed(2)});
                 if(this.state.uploadProgress>=0.99){
                     console.log("should be here");
                     this.setState({

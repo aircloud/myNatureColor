@@ -39,6 +39,7 @@ export default class SquareListDetail extends Component{
                 listbackgroundColor:responseText.backgroundColor,
                 favor:responseText.favor,
             });
+            console.log("detailInfo",responseText);
         });
 
         this.state={
@@ -125,12 +126,12 @@ export default class SquareListDetail extends Component{
                         <View style={styles.thisDetailView}>
                             <View style={styles.thisDetailViewBorder}>
                                 <View style={styles.likeView}>
-                                    <Text style={styles.likeTextName}>易小天</Text>
+                                    <Text style={styles.likeTextName}>{this.state.name}</Text>
                                     <TouchableHighlight style={styles.likebutton} activeOpacity={1} underlayColor="rgba(255,255,255,0)" onPress={() => {
                                         this._loadfavor(this.props.uid);
                                     }}>
                                         <View style={styles.likebuttonView}>
-                                            <Text style={styles.likeText}>1550</Text>
+                                            <Text style={styles.likeText}>{this.state.favor}</Text>
                                             <Image source={require('../images/like.png')} style={styles.like}/>
                                         </View>
                                     </TouchableHighlight>

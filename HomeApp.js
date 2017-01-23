@@ -70,7 +70,7 @@ class HomeApp extends Component{
         //     console.log('First, is ' + (isConnected ? 'online' : 'offline'));
         // });
 
-        dispatch(getAllarticle());
+        // dispatch(getAllarticle());
 
     }
 
@@ -80,7 +80,7 @@ class HomeApp extends Component{
 
         console.log('status change:' + status);
 
-        if(status=="wifi" || status == "cell" || status == "unknown"){
+        if(status=="wifi" || status == "cell"){
             dispatch(getAllarticle());
             NetInfo.removeEventListener('change', this.handleConnectivityChange.bind(this));
         }

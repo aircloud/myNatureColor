@@ -56,6 +56,7 @@ export default class SquareListDetailListView extends Component{
         var dataBlob = [];
         for (var ii = 0; ii < pressData.length; ii++) {
             var pressedText = pressData[ii];
+            console.log("pressedText",pressedText);
             dataBlob[ii]={};
             dataBlob[ii].source = {uri:pressedText.image_uri,isStatic:true};
             dataBlob[ii].image_width = pressedText.image_width==0?300:pressedText.image_width;
@@ -75,7 +76,7 @@ export default class SquareListDetailListView extends Component{
         var thisBackGroundColor=rowData.backgroundColor;
         return (
             <View>
-                <Image style={[styles.thumb,{width:rowData.image_width,height:rowData.image_height}]} source={rowData.source} />
+                <Image style={[styles.thumb,{width:300,height:300*rowData.image_height/rowData.image_width}]} source={rowData.source} />
             </View>
         );
     }

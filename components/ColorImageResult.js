@@ -68,7 +68,9 @@ export default class ColorImageUpload extends Component {
     render(){
         return(
             <ScrollView style={styles.topView} alwaysBounceHorizontal={false} bounces={false}>
-                <View></View>
+                <View  style={styles.text1View}>
+                    <Image source={require('../images/logo4.png')} style={styles.infoViewPic}/>
+                </View>
                 <View style={styles.text1View}>
                     <Text>经过naco的超过 </Text>
                     <Text>100,000,000 </Text>
@@ -96,6 +98,11 @@ export default class ColorImageUpload extends Component {
 }
 
 var styles = StyleSheet.create({
+    infoViewPic:{
+        width:45,
+        height:45,
+        marginTop:15,
+    },
     topView:{
         flexDirection:"column",
         backgroundColor:"#F3F4F8",
