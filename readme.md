@@ -2,14 +2,14 @@
 
 由于资金问题，短时间内app没有办法上架，我制作了一个演示视频，地址<a href="https://v.qq.com/x/page/v03690kwvek.html">在这里</a>(https://v.qq.com/x/page/v03690kwvek.html)
 
-####本app的功能：
+#### 本app的功能：
 
 **NACO**
 
 NACO是一款将目标用户定位为设计师/设计爱好者的色彩领域类App，其主要功能为对一张输入的图片(通常是风景图)进行压缩，计算和分析处理，从而得出根据这张图片推导出一套配色，推导出的颜色数目和相关参数(明度，对比度等)可以由用户自行定义，对设计师的设计制作过程具有指导意义。     
 另外，NACO还集成了广场(square)、个人历史记录、个人创作、投稿等功能，可以非常方便地解决和存储设计师的色彩解决方案，是一款在色彩设计领域得心应手的小而美的App。
 
-####开发日志
+#### 开发日志
 
 ### 0916 react进阶初步
 
@@ -48,14 +48,14 @@ react中调用组件方法方法要记得重新绑定this的指向，具体可�
 
 这几天开始学习react-native,前几天我的MacBook坏了去苹果店修了一下，之后又升级了系统，所以一开始一直在配置环境，这里先说下配置环境的几个问题：
 
-1.一开始自己总是在热模块替换的部分出现问题，见https://github.com/facebook/react-native/issues/10088，经过查证是自己的watchman没有安装正确，这个应该和系统升级有关系，Github相关页面中有解决方案。
+1.一开始自己总是在热模块替换的部分出现问题，见https://github.com/facebook/react-native/issues/10088 ，经过查证是自己的watchman没有安装正确，这个应该和系统升级有关系，Github相关页面中有解决方案。
 2.安卓环境目前还有一些关键的地方不支持新系统...
 
 接下来自己看了看《react-native开发指南》这本书，这本书虽然是今年六月份出的，但是现在已经有点过时了，不过看看还是可以的，也会有很多帮助，这里面几个重要的点：
 
 1.react-native现在比较支持ES6的语法，原书使用CommonJS的语法，不知道react是不是在将来还支持，但是我使用es6的语法是没有问题的。
 2.react-native的组件都是需要在开头引入的，比如Text,Image什么的，这个自己总是忘记。
-3.相关知识都可以在http://reactnative.cn/docs/0.31/getting-started.html这个地方看，但是现在还有一个遗留问题，在Image里面写Text不显示啊哭..，这个遗留问题以后解决。
+3.相关知识都可以在http://reactnative.cn/docs/0.31/getting-started.html 这个地方看，但是现在还有一个遗留问题，在Image里面写Text不显示啊哭..，这个遗留问题以后解决。
 
 ### 0927 部署react-native的app到自己的测试机
 
@@ -118,7 +118,7 @@ source ~/.bash_profile
 
 
 
-###1001 react-native:iOS10开发适配系列之权限Crash问题
+### 1001 react-native:iOS10开发适配系列之权限Crash问题
 
 今天在用react-native进行一些调试和学习，主要有以下几点:
 
@@ -147,7 +147,7 @@ source ~/.bash_profile
     <string>microphoneDesciption</string>
 ```
 
-###1002 ract-native Image不显示的问题&ListView不滚动
+### 1002 ract-native Image不显示的问题&ListView不滚动
 
 * Image不显示
 
@@ -159,7 +159,7 @@ source ~/.bash_profile
 > The goal is to have ListView's height expand to fill the screen. If you put flex: 1 on only the ListView, it will expand to fill its parent but the parent will not expand to fill the grandparent, hence the chain of flex: 1. You can also put flex-direction: row or fixed heights on the ancestors -- the point is that you need the ListView to fill the screen.
 
 
-###1003 react-native 完成post图片上传
+### 1003 react-native 完成post图片上传
 
 今天下午没有遇到什么太大的bug，晚上又遇到了比较严重的bug，关于上传图片到服务器这里，接下来依次说一下会遇到什么问题：
 
@@ -172,7 +172,7 @@ app.use(bodyParser.urlencoded({ extended: false,limit:'10000kb' }));`这样设�
 * 官网文档中给出的上传样例对返回体判断的有些过于复杂了，当然这也不是没用，不过自己现在就判断一个http代码和返回体的uri就够。
 * 据说用fetch也能实现图片上传功能(现在的版本已经封装好)，但是自己还是用的是XHRHttprequest，这样也不是没有好处，而且也肯定灵活一些，暂时这样用，
 
-###1005 react-native navigator, 配置redis
+### 1005 react-native navigator, 配置redis
 
 自己用react-native的navigator有这样一个场景：(主要是在iOS)
 
@@ -189,7 +189,7 @@ ____
 
 可以在这个网站http://itbilu.com/database/redis/4kB2ninp.html  学习如何配置redis
 
-###1010 关于ListView的重新渲染
+### 1010 关于ListView的重新渲染
 
 react的ListView充分运用到了原生的性能优势，并且可扩展性也较强，因此列表类都应当充分运用ListView。
 
@@ -208,25 +208,25 @@ this.setState({
 
 如果不进行深拷贝或者部分深拷贝，当自己更改一些数据的时候，由于指向相同，最终在比较函数中传递的r1,r2其实都是一个指向，这个时候认为数据没有变化，自然不会重新进行绘制。
 
-###1012 
+### 1012 
 
 不知不觉已经10月12号了..没想到这个app拖延了这么久，这几天自己打算写一个比较完善的iOS相册选择组件，之后放在GitHub上分享，写着写着，发现这里面需求比较复杂，而且很难用一个独立的组件完成(另外就是需要在navigator等组件里面使用)，虽然暂时写成了但是没办法较为独立的发布。
 
 也许自己对react-native的认识还是比较有欠缺，自己目前正在努力学习中，希望这个星期结束的时候app能够差不多...
 
-###1014
+### 1014
 
 这几天没有开发...今天服务器又被攻击挂了，数据删除了...恢复了一下，配了公私钥对称加密等..感觉暂时应该没啥问题了吧。
 
 之后写完了用户上传自己的作品这一部分，主要包括：选择图片、选择封面图、增加标题和说明等功能，之后自己直接构建XHR进行formdata的上传，服务端选用了multer，一个官方推荐的(多)文件上传中间件，相关函数和接口比较丰富，直接Google即可。
 
-####Possible Unhandled Promise rejection
+#### Possible Unhandled Promise rejection
 
 这个错误总是时不时出现，我在这里应该总结一下这个错误出现的可能的原因：
 
 1.  最常见的原因是自己后台服务器没有开起来，导致没有办法fetch到数据出错。
 
-###1020 react native 获取相册图片的尺寸
+### 1020 react native 获取相册图片的尺寸
 
 自己在用ImagePickeriOS的系统接口的时候，发现返回的只有Image的uri，而react native规定必须要指定width和height才能显示图片，所以自己查了半天如何获取width和height，经过查证，发现原来有这个函数：
 
@@ -244,7 +244,7 @@ this.setState({
 
 * 关于在styels中使用变量的问题，styles中是不太好直接使用组件中的变量的，但是可以直接把变量定义在组件外围，可以直接使用(自己在制作相片多选组件的时候有用到过)。
 
-###1027 关于toast的问题和dispatch的问题 以及listView单个宽度
+### 1027 关于toast的问题和dispatch的问题 以及listView单个宽度
 
 这大概是自己app开发最后的几个界面了，顺便解决或者处理了一些历史遗留问题，主要有：
 
